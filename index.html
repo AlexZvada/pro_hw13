@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const toDoList = {
+            list: [],
+            _create(name, info) {
+                const statusByDefault = 'to do';
+                let array = this.list;
+                if (!array[0]) {
+                    const newObject = {
+                        task: name,
+                        status: statusByDefault,
+                        info: info
+                    }
+                    array.push(newObject)
+                }
+                array.forEach(function (el, index) {
+                    let iteralObject = el;
+                    if (iteralObject.task !== name) {
+                        index++;
+                    }
+                    if (index === array.length) {
+                        const newObject = {
+                            task: name,
+                            status: statusByDefault,
+                            info: info
+                        }
+                        array.push(newObject)
+                    }
+                })
+                return array;
+            },
+            _remove(task) {
+                let array = this.list;
+                array.forEach(function (el, index) {
+                    let object = el;
+                    if (object.task === task) {
+                        array.splice(index, 1)
+                    }
+                })
+                return array;
+            },
+            _info() {
+                let array = this.list;
+                const taskCounter = {
+                    all: array.length,
+                    toDo: 0,
+                    done: 0
+                };
+                array.forEach(function (el) {
+                    let iteralObject = el;
+                    if (iteralObject.status === 'to do') {
+                        taskCounter.toDo += 1;
+                    }
+                    else {
+                        taskCounter.done += 1;
+                    }
+                })
+                console.log(taskCounter);
+            },
+            _changeStatus(task) {
+                let array = this.list;
+                const newStatus = "done";
+                const defaultStatus = 'to do';
+                array.find(function (el) {
+                    let iteralObject = el;
+                    if (iteralObject.task === task) {
+                        if (iteralObject.status === defaultStatus) {
+                            iteralObject.status = newStatus;
+                        }
+                        else (iteralObject.status = defaultStatus)
+                    }
+                })
+            },
+            _changeInfo(task, newInfo) {
+                let array = this.list;
+                array.find(function (el) {
+                    let iteralObject = el;
+                    if (iteralObject.task === task) {
+                        iteralObject.info = newInfo
+                    }
+                })
+            },
+
+                get create() {
+                    return this._create;
+                },
+                get remove() {
+                    return this._remove;
+                },
+                get info() {
+                    return this._info;
+                },
+                get changeStatus() {
+                    return this._changeStatus;
+                },
+                get changeInfo() {
+                    return this._changeInfo
+                }
+        }
+
+        Object.defineProperties(toDoList, {
+            'list':{
+                writable: false,
+                configurable: false
+            },
+            '_create': {
+                enumerable: false,
+                writable: false,
+                configurable: false
+            },
+            '_remove': {
+                enumerable: false,
+                writable: false,
+                configurable: false
+
+            },
+            '_info': {
+                enumerable: false,
+                writable: false,
+                configurable: false
+            },
+            '_changeStatus': {
+                enumerable: false,
+                writable: false,
+                configurable: false
+            },
+            '_changeInfo': {
+                enumerable: false,
+                writable: false,
+                configurable: false
+            },
+            'create': {
+                enumerable: false
+            },
+            'remove': {
+                enumerable: false
+            },
+            'info': {
+                enumerable: false
+            },
+            'changeStatus': {
+                enumerable: false
+            },
+            'changeInfo': {
+                enumerable: false
+            }
+        });
+        Object.freeze(toDoList);
+        toDoList.create('Food', 'need to nuy some food');
+        toDoList.create('food', 'Need to buy some food');
+        toDoList.create('Meeting', 'Meeting with Fred in the park');
+        toDoList.create('Remember', 'call boss at 5 pm ');
+        toDoList.create('Diner', 'order pizza');
+        toDoList.changeStatus('Diner');
+        toDoList.changeStatus('Diner');
+        toDoList.changeInfo('Meeting', 'meeting will be tomorrow')
+        toDoList.remove("food")
+        toDoList.info();
+
+        console.log(toDoList.list);
+
+        for (const key in toDoList) {
+            console.log(key);
+        }
+    </script>
+</body>
+
+</html>
