@@ -12,7 +12,7 @@
     <script>
         const toDoList = {
             list: [],
-            _create(name, info) {
+            create(name, info) {
                 const statusByDefault = 'to do';
                 let array = this.list;
                 if (!array[0]) {
@@ -39,7 +39,7 @@
                 })
                 return array;
             },
-            _remove(task) {
+            remove(task) {
                 let array = this.list;
                 array.forEach(function (el, index) {
                     let object = el;
@@ -49,7 +49,7 @@
                 })
                 return array;
             },
-            _info() {
+            info() {
                 let array = this.list;
                 const taskCounter = {
                     all: array.length,
@@ -67,7 +67,7 @@
                 })
                 console.log(taskCounter);
             },
-            _changeStatus(task) {
+            changeStatus(task) {
                 let array = this.list;
                 const newStatus = "done";
                 const defaultStatus = 'to do';
@@ -81,7 +81,7 @@
                     }
                 })
             },
-            _changeInfo(task, newInfo) {
+            changeInfo(task, newInfo) {
                 let array = this.list;
                 array.find(function (el) {
                     let iteralObject = el;
@@ -89,23 +89,7 @@
                         iteralObject.info = newInfo
                     }
                 })
-            },
-
-                get create() {
-                    return this._create;
-                },
-                get remove() {
-                    return this._remove;
-                },
-                get info() {
-                    return this._info;
-                },
-                get changeStatus() {
-                    return this._changeStatus;
-                },
-                get changeInfo() {
-                    return this._changeInfo
-                }
+            }
         }
 
         Object.defineProperties(toDoList, {
@@ -113,49 +97,32 @@
                 writable: false,
                 configurable: false
             },
-            '_create': {
-                enumerable: false,
-                writable: false,
-                configurable: false
-            },
-            '_remove': {
-                enumerable: false,
-                writable: false,
-                configurable: false
-
-            },
-            '_info': {
-                enumerable: false,
-                writable: false,
-                configurable: false
-            },
-            '_changeStatus': {
-                enumerable: false,
-                writable: false,
-                configurable: false
-            },
-            '_changeInfo': {
-                enumerable: false,
-                writable: false,
-                configurable: false
-            },
             'create': {
-                enumerable: false
+                enumerable: false,
+                writable: false,
+                configurable: false
             },
             'remove': {
-                enumerable: false
+                enumerable: false,
+                writable: false,
+                configurable: false
             },
             'info': {
-                enumerable: false
+                enumerable: false,
+                writable: false,
+                configurable: false
             },
             'changeStatus': {
-                enumerable: false
+                enumerable: false,
+                writable: false,
+                configurable: false
             },
             'changeInfo': {
-                enumerable: false
+                enumerable: false,
+                writable: false,
+                configurable: false
             }
         });
-        Object.freeze(toDoList);
         toDoList.create('Food', 'need to nuy some food');
         toDoList.create('food', 'Need to buy some food');
         toDoList.create('Meeting', 'Meeting with Fred in the park');
@@ -165,6 +132,10 @@
         toDoList.changeStatus('Diner');
         toDoList.changeInfo('Meeting', 'meeting will be tomorrow')
         toDoList.remove("food")
+        
+
+        delete toDoList.info;
+
         toDoList.info();
 
         console.log(toDoList.list);
